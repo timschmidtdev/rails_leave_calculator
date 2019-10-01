@@ -1,7 +1,14 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'random_data'
+
+50.times do
+  Plan.create!(
+    plan_type:  RandomData.random_sentence,
+    start:      RandomData.random_date,
+    length:     RandomData.random_decimal,
+    unit:       RandomData.random_sentence
+  )
+end
+plans = Plan.all
+
+puts "Seed finished"
+puts "#{Plan.count} plans created"
