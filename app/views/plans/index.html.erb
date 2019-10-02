@@ -1,0 +1,10 @@
+<h1>All Plans</h1>
+<%= @plans.each do |plan| %>
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading">
+        <%= link_to plan.plan_type, plan %>
+      </h4>
+    </div>
+  </div>
+<% end %>
