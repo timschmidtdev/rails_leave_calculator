@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PlanController, type: :controller do
-
+RSpec.describe PlansController, type: :controller do
   let(:my_plan) { Plan.create!(plan_type: RandomData.random_sentence, start: RandomData.random_date, length: RandomData.random_decimal, unit: RandomData.random_word) }
 
   describe "GET #index" do
