@@ -1,2 +1,4 @@
-<h1>Plan#show</h1>
-<p>Find me in app/views/plan/show.html.erb</p>
+<h1><%= @plan.plan_type %></h1>
+<p>Start Date: <%= @plan.start %></p>
+<p>Length: <%= @plan.length %> <%= @plan.unit %></p>
+<p>End Date: <%= @plan.start + @plan.length %></p>

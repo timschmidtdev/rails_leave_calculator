@@ -1,2 +1,34 @@
-<h1>Plan#new</h1>
-<p>Find me in app/views/plan/new.html.erb</p>
+<h1>New Leave Plan</h1>
+
+<div class="row">
+  <div class="col-md-4">
+    <p>Guidelines for plans</p>
+      <ul>
+        <li>Create as many as you need.</li>
+        <li>Create the same plan with different units of measure.</li>
+      </ul>
+  </div>
+  <div class="col-md-8">
+    <%= form_for @plan do |f| %>
+      <div class="form-group">
+        <%= f.label :plan_type %>
+        <%= f.text_field :plan_type, class: 'form-control', placeholder: "Enter type of leave" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :start %>
+        <%= f.date_field :start, class: 'form-control', placeholder: Date.today + 30 %>
+      </div>
+      <div class="form-group">
+        <%= f.label :length %>
+        <%= f.number_field :length, class: 'form-control', placeholder: 120 %>
+      </div>
+      <div class="form-group">
+        <%= f.label :unit %>
+        <%= f.text_field :unit, class: 'form-control', placeholder: "Days" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit "Save", class: 'btn btn-success' %>
+      </div>
+      <% end %>
+  </div>
+</div>
