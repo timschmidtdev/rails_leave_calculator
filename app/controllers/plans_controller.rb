@@ -28,5 +28,34 @@ class PlansController < ApplicationController
   end
 
   def edit
+    @plan = Plan.find(params[:id])
+  end
+
+  def update
+    @plan = Plan.find(params[:id])
+    @plan.plan_type = params[:plan][:plan_type]
+    @plan.start = params[:plan][:start]
+    @plan.length = params[:plan][:length]
+    @plan.unit = params[:plan][:unit]
+
+    if @plan.save
+      flash[:notice] = "Plan was updated."
+      redirect_to @plan
+    else
+      flash.now[:alert] = "There was an error saving the plan. Please try again."
+      render :edit
+    end
+  end
+
+  def destroy
+    @plan = Plan.find(params[:id])
+
+    if @plan.destroy
+      flash[:notice] = "\"#{@plan.plan_type}\" was deleted successfully."
+      redirect_to plans_path
+    else
+      flash.now[:alert] = "There was an error deleting the plan."
+      render :show
+    end
   end
 end
