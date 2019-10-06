@@ -1,0 +1,21 @@
+<h1><%= @employee.name %></h1>
+
+<%= link_to "Edit Employee", edit_employee_path, class: 'btn btn-success' %>
+<%= link_to "Delete Employee", @employee, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this employee?' } %>
+
+<div class="row">
+  <div class="col-md-8">
+  <%= @employee.plans.each do |plan| %>
+    <div class="media">
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= link_to plan.plan_type, employee_plan_path(@employee, plan) %>
+        </h4>
+      </div>
+    </div>
+  <% end %>
+  </div>
+  <div class="col-md-4">
+    <%= link_to "New Plan", new_employee_plan_path(@employee), class: 'btn btn-success' %>
+  </div>
+</div>

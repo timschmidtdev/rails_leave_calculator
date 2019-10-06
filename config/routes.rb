@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :plans
+  resources :employees do
+    resources :plans, except: [:index]
+  end
 
   get 'about' => 'welcome#about'
 

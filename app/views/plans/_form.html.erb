@@ -1,0 +1,31 @@
+<%= form_for [employee, plan] do |f| %>
+  <% if plan.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(plan.errors.count, "error") %>.</h4>
+      <ul>
+        <% plan.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form_group_tag(plan.errors[:plan_type]) do %>
+    <%= f.label :plan_type %>
+    <%= f.text_field :plan_type, class: 'form-control', placeholder: "Enter type of leave" %>
+  <% end %>
+  <%= form_group_tag(plan.errors[:start]) do %>
+    <%= f.label :start %>
+    <%= f.date_field :start, class: 'form-control', placeholder: Date.today + 30 %>
+  <% end %>
+  <%= form_group_tag(plan.errors[:length]) do %>
+    <%= f.label :length %>
+    <%= f.number_field :length, class: 'form-control', placeholder: 120 %>
+  <% end %>
+  <%= form_group_tag(plan.errors[:unit]) do %>
+    <%= f.label :unit %>
+    <%= f.text_field :unit, class: 'form-control', placeholder: "Days" %>
+  <% end %>
+  <div class="form-group">
+    <%= f.submit "Save", class: 'btn btn-success' %>
+  </div>
+<% end %>

@@ -1,0 +1,18 @@
+<h1>Employees</h1>
+
+<div class="row">
+  <div class="col-md-8">
+    <% @employees.each do |employee| %>
+      <div class="media">
+        <div class="media-body">
+          <h4 class="media-heading">
+            <%= link_to employee.name, employee %>
+          </h4>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-4">
+    <%= link_to "New Employee", new_employee_path, class: 'btn btn-success' %>
+  </div>
+</div>

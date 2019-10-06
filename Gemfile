@@ -36,6 +36,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 4.0.0.beta2'
+  gem 'shoulda'
   gem 'rails-controller-testing'
   gem 'pry'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,13 +1,10 @@
 class PlansController < ApplicationController
-  def index
-    @plans = Plan.all
-  end
-
   def show
     @plan = Plan.find(params[:id])
   end
 
   def new
+    @employee = Employee.find(params[:employee_id])
     @plan = Plan.new
   end
 
@@ -17,10 +14,12 @@ class PlansController < ApplicationController
     @plan.start = params[:plan][:start]
     @plan.length = params[:plan][:length]
     @plan.unit = params[:plan][:unit]
+    @employee = Employee.find(params[:employee_id])
+    @plan.employee = @employee
 
     if @plan.save
       flash[:notice] = "Plan was saved."
-      redirect_to @plan
+      redirect_to [@employee, @plan]
     else
       flash.now[:alert] = "There was an error saving the plan. Please try again."
       render :new
@@ -40,7 +39,7 @@ class PlansController < ApplicationController
 
     if @plan.save
       flash[:notice] = "Plan was updated."
-      redirect_to @plan
+      redirect_to [@plan.employee, @plan]
     else
       flash.now[:alert] = "There was an error saving the plan. Please try again."
       render :edit
@@ -52,7 +51,7 @@ class PlansController < ApplicationController
 
     if @plan.destroy
       flash[:notice] = "\"#{@plan.plan_type}\" was deleted successfully."
-      redirect_to plans_path
+      redirect_to @plan.employee
     else
       flash.now[:alert] = "There was an error deleting the plan."
       render :show
