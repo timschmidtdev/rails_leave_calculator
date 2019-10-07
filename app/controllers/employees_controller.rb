@@ -29,7 +29,7 @@ class EmployeesController < ApplicationController
   def update
     @employee = Employee.find(params[:id])
 
-    @employee.assign_attributes(empoyee_params)
+    @employee.assign_attributes(employee_params)
 
     if @employee.save
       flash[:notice] = "Employee was updated."

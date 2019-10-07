@@ -1,7 +1,7 @@
 <h1>
   <%= @plan.plan_type %> <br>
   <small>
-    submitted <%= time_ago_in_words(@plan.created_at) %> ago by <%= @plan.user.name %>
+    Created <%= @plan.created_at.strftime("%B %d, %Y") %>
   </small>
 </h1>
 
