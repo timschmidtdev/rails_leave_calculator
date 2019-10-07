@@ -1,4 +1,14 @@
 module RandomData
+  def self.random_name
+    first_name = random_word.capitalize
+    last_name = random_word.capitalize
+    "#{first_name} #{last_name}"
+  end
+
+  def self.random_email
+    "#{random_word}@#{random_word}.#{random_word}"
+  end
+  
   def self.random_sentence
     strings = []
     rand(1..3).times do
@@ -12,7 +22,7 @@ module RandomData
   def self.random_word
     letters = ('a'..'z').to_a
     letters.shuffle!
-    letters[0,rand(3..9)].join
+    letters[0,rand(6..10)].join
   end
 
   def self.random_date

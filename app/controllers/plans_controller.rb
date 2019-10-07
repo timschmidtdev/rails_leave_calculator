@@ -1,4 +1,6 @@
 class PlansController < ApplicationController
+  before_action :require_sign_in, except: :show
+
   def show
     @plan = Plan.find(params[:id])
   end
@@ -9,13 +11,9 @@ class PlansController < ApplicationController
   end
 
   def create
-    @plan = Plan.new
-    @plan.plan_type = params[:plan][:plan_type]
-    @plan.start = params[:plan][:start]
-    @plan.length = params[:plan][:length]
-    @plan.unit = params[:plan][:unit]
     @employee = Employee.find(params[:employee_id])
-    @plan.employee = @employee
+    @plan = @employee.plans.build(plan_params)
+    @plan.user = current_user
 
     if @plan.save
       flash[:notice] = "Plan was saved."
@@ -32,10 +30,7 @@ class PlansController < ApplicationController
 
   def update
     @plan = Plan.find(params[:id])
-    @plan.plan_type = params[:plan][:plan_type]
-    @plan.start = params[:plan][:start]
-    @plan.length = params[:plan][:length]
-    @plan.unit = params[:plan][:unit]
+    @plan.assign_attributes(plan_params)
 
     if @plan.save
       flash[:notice] = "Plan was updated."
@@ -56,5 +51,11 @@ class PlansController < ApplicationController
       flash.now[:alert] = "There was an error deleting the plan."
       render :show
     end
+  end
+
+  private
+
+  def plan_params
+    params.require(:plan).permit(:plan_type, :start, :length, :unit)
   end
 end

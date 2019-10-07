@@ -12,8 +12,7 @@ class EmployeesController < ApplicationController
   end
 
   def create
-    @employee = Employee.new
-    @employee.name = params[:employee][:name]
+    @employee = Employee.new(employee_params)
 
     if @employee.save
       redirect_to @employee, notice: "Employee was saved successfully."
@@ -30,7 +29,7 @@ class EmployeesController < ApplicationController
   def update
     @employee = Employee.find(params[:id])
 
-    @employee.name = params[:employee][:name]
+    @employee.assign_attributes(empoyee_params)
 
     if @employee.save
       flash[:notice] = "Employee was updated."
@@ -51,5 +50,11 @@ class EmployeesController < ApplicationController
       flash.now[:alert] = "There was an error deleting the employee."
       render :show
     end
+  end
+
+  private
+
+  def employee_params
+    params.require(:employee).permit(:name)
   end
 end

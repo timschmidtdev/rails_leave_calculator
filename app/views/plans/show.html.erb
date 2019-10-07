@@ -1,4 +1,9 @@
-<h1><%= @plan.plan_type %></h1>
+<h1>
+  <%= @plan.plan_type %> <br>
+  <small>
+    submitted <%= time_ago_in_words(@plan.created_at) %> ago by <%= @plan.user.name %>
+  </small>
+</h1>
 
 <div class="row">
   <div class="col-md-8">
