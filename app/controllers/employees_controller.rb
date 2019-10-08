@@ -1,4 +1,7 @@
 class EmployeesController < ApplicationController
+  before_action :require_sign_in, except: [:index, :show]
+  before_action :authorize_user, except: [:index, :show]
+
   def index
     @employees = Employee.all
   end
@@ -56,5 +59,12 @@ class EmployeesController < ApplicationController
 
   def employee_params
     params.require(:employee).permit(:name)
+  end
+
+  def authorize_user
+    unless current_user.admin?
+      flash[:alert] = "You must be an admin to do that."
+      redirect_to employees_path
+    end
   end
 end
