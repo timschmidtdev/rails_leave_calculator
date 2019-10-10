@@ -10,10 +10,10 @@
     <p>Start Date: <%= @plan.start %></p>
   </div>
   <div class="col-md-8">
-    <p>Length: <%= @plan.length %> <%= @plan.unit %></p>
+    <p>Length: <%= @plan.length %> <%= unit_of_measure(@plan.unit.to_i) %></p>
   </div>
   <div class="col-md-8">
-    <p>End Date: <%= @plan.start + @plan.length %></p>
+    <p>End Date: <%= calculate_plan(@plan) %></p>
   </div>
   <div class="col-md-4">
     <%= link_to "Edit", edit_employee_plan_path(@plan.employee, @plan), class: 'btn btn-success' %>
