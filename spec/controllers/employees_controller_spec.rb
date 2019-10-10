@@ -4,7 +4,50 @@ include SessionsHelper
 RSpec.describe EmployeesController, type: :controller do
   let(:my_employee) { Employee.create!(name: RandomData.random_sentence) }
 
-  # consider testing that guest can't see employees
+  context "guest member" do
+    describe "GET index" do
+      it "returns http redirect" do
+        get :index
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+
+    describe "GET show" do
+      it "returns http redirect" do
+        get :show, params: {id: my_employee.id}
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+
+    describe "GET new" do
+      it "returns http redirect" do
+        get :new
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+
+    describe "POST create" do
+      it "returns http redirect" do
+        post :create, params: { employee: {name: RandomData.random_sentence } }
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+
+    describe "GET edit" do
+      it "returns http redirect" do
+        get :edit, params: {id: my_employee.id}
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+
+    describe "DELETE destroy" do
+      it "returns http redirect" do
+        delete :destroy, params: {id: my_employee.id}
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+  end
+
   context "member user" do
     before do
       user = User.create!(name: "Leave User", email: "user@cool.com", password: "helloworld", role: :member)
