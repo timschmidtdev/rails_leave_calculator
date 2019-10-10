@@ -11,11 +11,14 @@ class EmployeesController < ApplicationController
   end
 
   def new
+    @user = User.find(params[:user_id])
     @employee = Employee.new
   end
 
   def create
-    @employee = Employee.new(employee_params)
+    @user = User.find(params[:user_id])
+    @employee = @user.mployees.build(employee_params)
+    @employee.user = current_user
 
     if @employee.save
       redirect_to @employee, notice: "Employee was saved successfully."

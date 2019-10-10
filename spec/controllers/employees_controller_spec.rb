@@ -2,7 +2,8 @@ require 'rails_helper'
 include SessionsHelper
 
 RSpec.describe EmployeesController, type: :controller do
-  let(:my_employee) { Employee.create!(name: RandomData.random_sentence) }
+  let(:my_user) { User.create!(name: "Leave User", email: "user@cool.com", password: "password") }
+  let(:my_employee) { Employee.create!(name: RandomData.random_sentence, user: my_user) }
 
   context "guest member" do
     describe "GET index" do
@@ -50,7 +51,7 @@ RSpec.describe EmployeesController, type: :controller do
 
   context "member user" do
     before do
-      user = User.create!(name: "Leave User", email: "user@cool.com", password: "helloworld", role: :member)
+      user = User.create!(name: "Leave User", email: "member@cool.com", password: "helloworld", role: :member)
       create_session(user)
     end
 
@@ -66,7 +67,7 @@ RSpec.describe EmployeesController, type: :controller do
       end
     end
 
-    describe "GET show" do
+    describe "GET show", :focus do
       it "returns http success" do
         get :show, params: {id: my_employee.id}
         expect(response).to have_http_status(:success)

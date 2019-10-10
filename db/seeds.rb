@@ -11,6 +11,7 @@ users = User.all
 
 15.times do
   Employee.create!(
+    user: users.sample,
     name: RandomData.random_sentence
   )
 end
