@@ -11,6 +11,11 @@
         <h4 class="media-heading">
           <%= link_to plan.plan_type, employee_plan_path(@employee, plan) %>
         </h4>
+        <ul>
+          <li>Start Date: <%= plan.start %></li>
+          <li>Length: <%= plan.length %> <%= unit_of_measure(plan.unit.to_i) %></li>
+          <li>End Date: <%= calculate_plan(plan) %></li>
+        </ul>
       </div>
     </div>
   <% end %>
