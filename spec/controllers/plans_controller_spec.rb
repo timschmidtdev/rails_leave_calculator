@@ -1,9 +1,9 @@
 require 'rails_helper'
-
 include SessionsHelper
 
 RSpec.describe PlansController, type: :controller do
   let(:my_user) { User.create!(name: "Leave User", email: "user@cool.com", password: "password") }
+  let(:other_user) { User.create!(name: RandomData.random_word, email: "some@email.com", password: "helloworld", role: :member)}
   let(:my_employee) { Employee.create!(name: RandomData.random_sentence) }
   let(:my_plan) { my_employee.plans.create!(plan_type: RandomData.random_sentence,
                               start: RandomData.random_date,
@@ -60,9 +60,29 @@ RSpec.describe PlansController, type: :controller do
     end
   end
 
-  context "signed-in user" do
+  context "member user doing CRUD ona plan they don't own" do
+  end
+
+  context "member user doing CRUD on a plan they own" do
     before do
       create_session(my_user)
+    end
+
+    describe "GET show" do
+      it "returns http success" do
+        get :show, params: { employee_id: my_employee.id, id: my_plan.id }
+        expect(response).to have_http_status(:success)
+      end
+
+      it "renders the #show view" do
+        get :show, params: { employee_id: my_employee.id, id: my_plan.id }
+        expect(response).to render_template :show
+      end
+
+      it "assigns my_plan to @plan" do
+        get :show, params: { employee_id: my_employee.id, id: my_plan.id }
+        expect(assigns(:plan)).to eq(my_plan)
+      end
     end
 
     describe "GET new" do
@@ -86,12 +106,9 @@ RSpec.describe PlansController, type: :controller do
       it "increases the number of Plans by 1" do
         expect{ post :create, 
                       params: { 
-                        employee_id: my_employee.id, 
+                        employee_id: my_employee.id,
                         plan: { 
-                          plan_type: RandomData.random_sentence,
-                          start: RandomData.random_date,
-                          length: RandomData.random_decimal,
-                          unit: RandomData.random_word
+                          plan_type: my_plan.plan_type
                         }
                       }
                     }.to change(Plan,:count).by(1)
@@ -100,7 +117,7 @@ RSpec.describe PlansController, type: :controller do
       it "assigns the new plan to @plan" do
         post :create, 
               params: {
-                employee_id: my_employee.id, 
+                employee_id: my_employee.id,
                 plan: {
                   plan_type: RandomData.random_sentence,
                   start: RandomData.random_date,
@@ -114,7 +131,7 @@ RSpec.describe PlansController, type: :controller do
       it "redirects to the new plan" do
         post :create,
               params: {
-                employee_id: my_employee.id, 
+                employee_id: my_employee.id,
                 plan: {
                   plan_type: RandomData.random_sentence,
                   start: RandomData.random_date,

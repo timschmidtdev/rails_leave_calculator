@@ -62,7 +62,7 @@ class EmployeesController < ApplicationController
   end
 
   def authorize_user
-    unless current_user.admin?
+    unless current_user.admin? || current_user.member?
       flash[:alert] = "You must be an admin to do that."
       redirect_to employees_path
     end
