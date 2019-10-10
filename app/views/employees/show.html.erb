@@ -1,7 +1,9 @@
 <h1><%= @employee.name %></h1>
 
+<div class="employee-btn-group">
 <%= link_to "Edit Employee", edit_employee_path, class: 'btn btn-success' %>
 <%= link_to "Delete Employee", @employee, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this employee?' } %>
+</div>
 
 <div class="row">
   <div class="col-md-8">
