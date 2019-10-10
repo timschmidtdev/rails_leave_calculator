@@ -12,15 +12,18 @@ module PlanHelper
   end
 
   def calculate_plan(plan)
+    start = plan.start
     unit = plan.unit.to_i
+    length = plan.length
+    
     if unit == 1
-      plan.start + plan.length
+      start + plan.length
     elsif unit == 2
-      plan.start.weeks_since(plan.length)
+      start.weeks_since(length)
     elsif unit == 3
-      plan.start.months_since(plan.length)
+      start.months_since(length)
     else
-      plan.start.years_since(plan.length)
+      start.years_since(length)
     end
   end
 end
