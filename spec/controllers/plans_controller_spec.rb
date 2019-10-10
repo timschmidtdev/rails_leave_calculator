@@ -13,19 +13,9 @@ RSpec.describe PlansController, type: :controller do
 
   context "guest user" do
     describe "GET show" do
-      it "returns http success" do
+      it "returns http redirect" do
         get :show, params: { employee_id: my_employee.id, id: my_plan.id }
-        expect(response).to have_http_status(:success)
-      end
-
-      it "renders the #show view" do
-        get :show, params: { employee_id: my_employee.id, id: my_plan.id }
-        expect(response).to render_template :show
-      end
-
-      it "assigns my_plan to @plan" do
-        get :show, params: { employee_id: my_employee.id, id: my_plan.id }
-        expect(assigns(:plan)).to eq(my_plan)
+        expect(response).to redirect_to(new_session_path)
       end
     end
 
