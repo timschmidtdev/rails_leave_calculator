@@ -85,18 +85,18 @@ RSpec.describe EmployeesController, type: :controller do
     end
 
     describe "GET new" do
-      it "returns http redirect" do
-        get :new
+      it "returns http succes", :focus do
+        get :new, params: { id: my_employee.id, user_id: my_user.id }
         expect(response).to have_http_status(:success)
       end
 
       it "renders the #new view" do
-        get :new
+        get :new, params: { id: my_employee.id, user_id: my_user.id }
         expect(response).to render_template :new
       end
 
       it "initializes @employee" do
-        get :new
+        get :new, params: { id: my_employee.id, user_id: my_user.id }
         expect(assigns(:employee)).not_to be_nil
       end
     end
@@ -172,7 +172,7 @@ RSpec.describe EmployeesController, type: :controller do
 
   context "admin user" do
     before do
-      user = User.create!(name: "Leave User", email: "user@cool.com", password: "helloworld", role: :admin)
+      user = User.create!(name: "Leave User", email: "admin_user@cool.com", password: "helloworld", role: :admin)
       create_session(user)
     end
 

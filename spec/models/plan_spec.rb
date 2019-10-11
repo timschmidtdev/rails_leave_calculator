@@ -7,8 +7,8 @@ RSpec.describe Plan, type: :model do
   let(:length) { RandomData.random_decimal }
   let(:unit) { RandomData.random_word}
 
-  let(:employee) { Employee.create!(name: name) }
   let(:user) { User.create!(name: "Leave User", email: "user@cool.com", password: "password") }
+  let(:employee) { Employee.create!(name: name, user: user) }
   let(:plan) { employee.plans.create!(plan_type: plan_type, start: date, length: length, unit: unit, user: user) }
 
   it { is_expected.to belong_to(:employee) }

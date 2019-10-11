@@ -4,7 +4,7 @@ include SessionsHelper
 RSpec.describe PlansController, type: :controller do
   let(:my_user) { User.create!(name: "Leave User", email: "user@cool.com", password: "password") }
   let(:other_user) { User.create!(name: RandomData.random_word, email: "some@email.com", password: "helloworld", role: :member)}
-  let(:my_employee) { Employee.create!(name: RandomData.random_sentence) }
+  let(:my_employee) { Employee.create!(name: RandomData.random_sentence, user: my_user) }
   let(:my_plan) { my_employee.plans.create!(plan_type: RandomData.random_sentence,
                               start: RandomData.random_date,
                               length: RandomData.random_decimal,
