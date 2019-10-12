@@ -7,13 +7,13 @@
 
 <div class="row">
   <div class="col-md-8">
-    <p>Start Date: <%= @plan.start %></p>
+    <p>Start Date: <%= @plan.start.strftime("%B %d, %Y") %></p>
   </div>
   <div class="col-md-8">
-    <p>Length: <%= @plan.length %> <%= unit_of_measure(@plan.unit.to_i) %></p>
+    <p>Length: <%= @plan.length.to_i %> <%= unit_of_measure(@plan.unit.to_i) %></p>
   </div>
   <div class="col-md-8">
-    <p>End Date: <%= calculate_plan(@plan) %></p>
+    <p>End Date: <%= calculate_plan(@plan).strftime("%B %d, %Y") %></p>
   </div>
   <div class="col-md-4">
     <%= link_to "Back to Plans", @plan.employee, class: 'btn btn-primary' %>

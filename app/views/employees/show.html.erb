@@ -14,15 +14,16 @@
           <%= link_to plan.plan_type, employee_plan_path(@employee, plan) %>
         </h4>
         <ul>
-          <li>Start Date: <%= plan.start %></li>
-          <li>Length: <%= plan.length %> <%= unit_of_measure(plan.unit.to_i) %></li>
-          <li>End Date: <%= calculate_plan(plan) %></li>
+          <li>Start Date: <%= plan.start.strftime("%B %d, %Y") %></li>
+          <li>Length: <%= plan.length.to_i %> <%= unit_of_measure(plan.unit.to_i) %></li>
+          <li>End Date: <%= calculate_plan(plan).strftime("%B %d, %Y") %></li>
         </ul>
       </div>
     </div>
   <% end %>
   </div>
   <div class="col-md-4">
+    <%= link_to "Back to Employees", employees_path, class: 'btn btn-primary' %>
     <%= link_to "New Plan", new_employee_plan_path(@employee), class: 'btn btn-success' %>
   </div>
 </div>

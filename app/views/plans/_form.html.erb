@@ -15,11 +15,11 @@
   <% end %>
   <%= form_group_tag(plan.errors[:start]) do %>
     <%= f.label :start %>
-    <%= f.date_field :start, class: 'form-control', placeholder: Date.today + 30 %>
+    <%= f.date_field :start, class: 'form-control' %>
   <% end %>
   <%= form_group_tag(plan.errors[:length]) do %>
     <%= f.label :length %>
-    <%= f.number_field :length, class: 'form-control', placeholder: 120 %>
+    <%= f.number_field :length, class: 'form-control', placeholder: 60 %>
   <% end %>
   <%= form_group_tag(plan.errors[:unit]) do %>
     <%= f.label :unit %>
